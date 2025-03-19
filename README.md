@@ -1,73 +1,69 @@
-# User Management System (OOP)
+# User Management System
 
-This project implements a user management system using Object-Oriented Programming (OOP) principles. It includes classes for User, UserService, and UserUtil.
+This project implements a user management system using object-oriented principles in Python. It includes classes for managing user data, services for user operations, and utility functions.
 
-## Project Structure
 ## Classes
 
-### `User`
+### User
 
-Represents a user with attributes like user ID, name, email, and birthday.
+Represents a user with attributes like `user_id`, `name`, `surname`, `birthday`, `email`, and `password`.
 
-**Attributes:**
-
-* `user_id` (int): Unique identifier.
-* `name` (str): First name.
-* `surname` (str): Last name.
-* `email` (str): Email address.
-* `password` (str): Password.
-* `birthday` (datetime): Birthday.
-
-**Methods:**
-
-* `__init__(self, user_id, name, surname, email, password, birthday)`: Initializes a new User object.
+* `__init__(self, user_id, name, surname, birthday)`: Initializes a new user.
 * `get_details(self)`: Returns a formatted string with user details.
-* `get_age(self)`: Computes and returns the user's age.
+* `get_age(self)`: Calculates and returns the user's age.
 
-### `UserService`
+### UserService
 
-Manages user records.
+Manages a collection of `User` objects.
 
-**Class Attribute:**
+* `users (class attribute)`: A dictionary storing `User` objects with `user_id` as the key.
+* `add_user(cls, user)`: Adds a `User` object to the `users` dictionary.
+* `find_user(cls, user_id)`: Retrieves a `User` object by `user_id`.
+* `delete_user(cls, user_id)`: Removes a `User` object by `user_id`.
+* `update_user(cls, user_id, user_update)`: Updates a `User` object's attributes.
+* `get_number(cls)`: Returns the number of users in the system.
 
-* `users` (dict): Dictionary to store User objects.
-
-**Class Methods:**
-
-* `add_user(cls, user)`: Adds a User object to the users dictionary.
-* `find_user(cls, user_id)`: Finds a user by user ID.
-* `delete_user(cls, user_id)`: Removes a user by user ID.
-* `update_user(cls, user_id, user_update)`: Updates user attributes.
-* `get_number(cls)`: Returns the number of users.
-
-### `UserUtil`
+### UserUtil
 
 Provides utility functions for user management.
 
-**Static Methods:**
-
-* `generate_user_id()`: Generates a unique user ID.
+* `generate_user_id()`: Generates a unique 9-digit user ID.
 * `generate_password()`: Generates a strong password.
-* `is_strong_password(password)`: Checks password strength.
+* `is_strong_password(password)`: Checks if a password meets strength requirements.
 * `generate_email(name, surname, domain)`: Generates an email address.
-* `validate_email(email)`: Validates an email address.
-
-## How to Run
-
-1.  **Clone the Repository:**
-    ```bash
-    git clone <repository_url>
-    cd user-management-oop
-    ```
-2.  **Run Tests:**
-    ```bash
-    python -m unittest tests/test_user_management.py
-    ```
-
-## Sample Runs
-
-Include sample runs (input and output) here. You can either use text examples or screenshots.
+* `validate_email(email)`: Validates an email address format.
 
 ## UML Class Diagram
 
-Include a UML class diagram here (e.g., as an image file).
+```mermaid
+classDiagram
+    class User{
+        - int user_id
+        - string name
+        - string surname
+        - datetime birthday
+        - string email
+        - string password
+        + __init__(int user_id, string name, string surname, datetime birthday)
+        + string get_details()
+        + int get_age()
+    }
+
+    class UserService{
+        + dict users
+        + add_user(User user)
+        + User find_user(int user_id)
+        + delete_user(int user_id)
+        + update_user(int user_id, User user_update)
+        + int get_number()
+    }
+
+    class UserUtil{
+        + static int generate_user_id()
+        + static string generate_password()
+        + static bool is_strong_password(string password)
+        + static string generate_email(string name, string surname, string domain)
+        + static bool validate_email(string email)
+    }
+
+    User "1" -- "*" UserService : uses
